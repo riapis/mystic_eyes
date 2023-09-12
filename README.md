@@ -111,3 +111,26 @@ https://mystic-eyes.adaptable.app/
 5. Pada bagian Start Command masukkan perintah `python manage.py migrate && gunicorn rey_inventory.wsgi`
 
 ## Bagan request client ke web aplikasi berbasis Django
+
+
+## Alasan menggunakan *virtual environment* dan apa yang terjadi jika tidak menggunakan *virtual environment* 
+*Virtual environment* berfungsi untuk mengelola dependensi dan paket Python untuk proyek Anda secara terpisah dari sistem Python global. Hal ini dapat menghindari konflik jika kita bekerja pada dua proyek dengan versi berbeda, tetapi dari paket yang sama.
+
+Jika kita tidak menggunakan *virtual environment*, sebenarnya kita tetap bisa membuat aplikasi web berbasis django. Namun risiko terjadinya konflik akan sangat besar.
+
+## MVC, MVT, MVVM
+1. MVC (Model View Controller)
+   * Model: mengatur cara data disimpan, diambil, dan diperbarui
+   * View: menggambarkan tampilan dan berinteraksi dengan pengguna
+   * Controller: menerima input dari pengguna dan mengoordinasikan tindakan yang diperlukan oleh Model dan View (penghubung antara Model dan View)
+2. MVT (Model View Template)
+   * Model: mengatur cara data disimpan, diambil, dan diperbarui
+   * View: menggambarkan tampilan dan berinteraksi dengan pengguna
+   * Template: komponen tambahan yang digunakan untuk merender tampilan
+3. MVVM (Model View ViewModel)
+   * Model:  mengatur cara data disimpan, diambil, dan diperbarui
+   * View: menggambarkan tampilan dan berinteraksi dengan pengguna
+   * ViewModel: mengubah data dari Model menjadi format yang dapat digunakan oleh View, dan juga menerima tindakan pengguna dari View dan meneruskannya ke Model
+
+Perbedaan  MVC, MVT, MVVM:
+Perbedaan utama ketiganya adalah dalam cara komponen-komponen tersebut berinteraksi, MVC menggunakan Controller untuk mengoordinasikan Model dan View, MVT menggunakan Template untuk mengatur presentasi tampilan, dan MVVM menggunakan ViewModel sebagai perantara View dan Model.
