@@ -3,8 +3,8 @@ from django.shortcuts import render
 # Create your views here.
 def show_main(request):
     context = {
-        'type': 'Hero',
-        'amount': '50'
+        'nama': 'Fari',
+        'kelas': 'PBP A'
     }
 
     return render(request, "main.html", context)
