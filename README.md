@@ -111,7 +111,7 @@ https://mystic-eyes.adaptable.app/
 5. Pada bagian Start Command masukkan perintah `python manage.py migrate && gunicorn rey_inventory.wsgi`
 
 ## Bagan request client ke web aplikasi berbasis Django
-![Bagan](https://i.imgur.com/n9AvtvK.png)
+![Bagan](https://i.imgur.com/gQcZoQP.png)
 Saat klien mengakses situs berbasi django, browser akan mengirimkan HHTP request ke `urls.py` untuk di handle. `urls.py` akan menghubungkan URL dengan view yang sesuai dengan `views.py`. `views.py` akan mengambil data dari `models.py` dan mengirimkannya ke `templates` untuk merendel tampilan yang nantinya akn dikembalikan ke klien untuk menjadi userinterface.
 
 ## Alasan menggunakan *virtual environment* dan apa yang terjadi jika tidak menggunakan *virtual environment* 
