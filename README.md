@@ -113,7 +113,7 @@ https://mystic-eyes.adaptable.app/
 5. Pada bagian Start Command masukkan perintah `python manage.py migrate && gunicorn rey_inventory.wsgi`
 
 ## Bagan request client ke web aplikasi berbasis Django
-![Bagan](https://i.imgur.com/gQcZoQP.png)
+![Bagan](asset/Bagan.png)
 Saat klien mengakses situs berbasi django, browser akan mengirimkan HHTP request ke `urls.py` untuk di handle. `urls.py` akan menghubungkan URL dengan view yang sesuai dengan `views.py`. `views.py` akan mengambil data dari `models.py` dan mengirimkannya ke `templates` untuk merendel tampilan yang nantinya akn dikembalikan ke klien untuk menjadi userinterface.
 
 ## Alasan menggunakan *virtual environment* dan apa yang terjadi jika tidak menggunakan *virtual environment* 
@@ -366,3 +366,20 @@ Karena JSON memiliki banyak keunggulan yang diantaranya:
    ```
    
 ## *screenshot* dari hasil akses URL
+1. HTML
+   ![HTML](asset/HTML.png)
+2. JSON
+   ![JSON](asset/JSON.png)
+3. XML
+   ![XML](asset/XML.png)
+4. JSON *by ID*
+   ![JSON_byID](asset/JSON_ID.png)
+5. XML *by ID*
+    ![XML](asset/XML_ID.png)
+
+## Bonus
+Menambahkan pesan "Kamu menyimpan X item pada aplikasi ini" dengan menggunakan kode
+
+```
+<h3>You have {{ products|length }} card(s) for your journey</h3>
+```
