@@ -239,7 +239,85 @@ Karena JSON memiliki banyak keunggulan yang diantaranya:
        ...
    ] 
    ```
-# 5. HTML
+5. Buka `main` -> `template` dan buat file baru bernama `add_card.html` dengan kode berikut
+
+   ```
+   {% extends 'base.html' %} 
+
+   {% block content %}
+   <h1>Add New Card</h1>
+   
+   <form method="POST">
+       {% csrf_token %}
+       <table>
+           {{ form.as_table }}
+           <tr>
+               <td></td>
+               <td>
+                   <input type="submit" value="Add Card"/>
+               </td>
+           </tr>
+       </table>
+   </form>
+   
+   {% endblock %}
+   ```
+6. Pada direktori yang sama buka `main.html` dan ubah kode menjadi seperti berikut
+
+   ```
+   {% extends 'base.html' %}
+
+   {% block content %}
+   
+   <style>
+       table, th, td {
+         border:1px solid black;
+       }
+   </style>
+   
+       <h1>Mystic Eye Card Holder</h1>
+   
+       <h5>Name:</h5>
+       <p>{{name}}</p>
+   
+       <h5>Class:</h5>
+       <p>{{class}}</p>
+   
+       <h3>You have {{ products|length }} card(s) for your journey</h3>
+   <table>
+       <tr>
+           <th>Type</th>
+           <th>Name</th>
+           <th>Element</th>
+           <th>Amount</th>
+           <th>Power</th>
+           <th>Description</th>
+       </tr>
+   
+       {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
+   
+       {% for product in products %}
+           <tr>
+               <td>{{product.type}}</td>
+               <td>{{product.name}}</td>
+               <td>{{product.element}}</td>
+               <td>{{product.amount}}</td>
+               <td>{{product.power}}</td>
+               <td>{{product.description}}</td>
+           </tr>
+       {% endfor %}
+   </table>
+   
+   <br />
+   
+   <a href="{% url 'main:add_card' %}">
+       <button>
+           Add New Card
+       </button>
+   </a>
+   
+   {% endblock content %}
+   ```
 
 ### B. Tambahkan 5 fungsi `views` untuk melihat objek yang sudah ditambahkan dalam format HTML, XML, JSON, XML *by ID*, dan JSON *by ID*
 1. Buka `main` -> `views.py` dan tambahkan beberapa import
