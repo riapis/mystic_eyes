@@ -1,7 +1,9 @@
 # Mystic Eyes
-Trading Card game dengan tema fantasi
+Trading Card game dengan tema fantasi.
 https://mystic-eyes.adaptable.app/
+#
 
+# Tugas 2
 ## Pembuatan aplikasi
 ### A. Membuat sebuah proyek Django baru
 1. Buat direktori bernama `mystic_eyes`, lalu ke command prompt melalui direktori tersebut dan jalankan `python -m venv env` untuk membuat *virtual environment*
@@ -135,3 +137,154 @@ Jika kita tidak menggunakan *virtual environment*, sebenarnya kita tetap bisa me
 
 Perbedaan  MVC, MVT, MVVM:
 Perbedaan utama ketiganya adalah dalam cara komponen-komponen tersebut berinteraksi, MVC menggunakan Controller untuk mengoordinasikan Model dan View, MVT menggunakan Template untuk mengatur presentasi tampilan, dan MVVM menggunakan ViewModel sebagai perantara View dan Model.
+
+#
+# Tugas 3
+## `POST` vs `GET` dalam django
+<table>
+  <tr>
+    <th>POST</th>
+    <th>GET</th>
+  </tr>
+  <tr>
+    <td>Data/value tidak terlihat di URL</td>
+    <td>Data/value terlihat di URL</td>
+  </tr>
+  <tr>
+    <td>Tidak ada batasan ukuran untuk data yang dapat dikirimkan</td>
+    <td>Terdapat batasan ukuran URL yang dapat ditangani oleh server</td>
+  </tr>
+  <tr>
+  <td>Untuk request yang dapat mengubah data di server</td>
+  <td>Untuk request yang tidak mengubah data di server</td>
+  </tr>
+</table>
+
+## Perbedaan XML, JSON, dan HTML dalam pengiriman data
+1. XML
+   * Dapat mendefinisikan struktur data secara bebas, sehingga XML lebih kompleks dibanding JSON dan HTML
+   * Digunakan secara luas untuk pertukaran data antara sistem yang berbeda dan konfigurasi file
+2. JSON
+   * Struktur data lebih sederhana dan strukturnya terdiri dari pasangan nama-nilai
+   * Umumnya digunakan untuk pertukaran data antar aplikasi web
+3. HTML
+   * Digunakan untuk membuat tampilan halaman web dan mengorganisir kontennya
+
+## Mengapa JSON sering digunakan dalam pertukaran data antara aplikasi web modern?
+Karena JSON memiliki banyak keunggulan yang diantaranya:
+1. JSON memiliki format yang sangat ringkas dan ringan
+2. Menggunakan sintaks yang mudah dibaca dan ditulis oleh manusia
+3. Hampir semua bahasa pemrograman modern memiliki dukungan untuk mengurai dan membuat JSON
+
+## Pengimplementasian *checklist*
+### A. Membuat input `form` untuk menambahkan objek model pada app sebelumnya
+1. Membuat `forms.py` di direktori `main` dan isi dengan
+   
+   ```
+   from django.forms import ModelForm
+   from main.models import Product
+
+   class ProductForm(ModelForm):
+    class Meta:
+        model = Product
+        fields = ["type", "name", "element", "amount", "power", "description"]
+   ```
+2. Buka folder `main` -> `views.py` dan tambahkan
+   beberapa import
+
+   ```
+   from django.http import HttpResponseRedirect
+   from main.forms import ProductForm
+   from django.urls import reverse
+   ```
+   dan fungsi `add_card`
+
+   ```
+   def add_card(request):
+       form = ProductForm(request.POST or None)
+   
+       if form.is_valid() and request.method == "POST":
+           form.save()
+           return HttpResponseRedirect(reverse('main:show_main'))
+   
+       context = {'form': form}
+       return render(request, "add_card.html", context)
+   ```
+3. Mengubah fungsi `show_main` menjadi
+
+   ```
+   def show_main(request):
+       products = Product.objects.all()
+   
+       context = {
+           'name': 'Fari', # Nama kamu
+           'class': 'PBP A', # Kelas PBP kamu
+           'products': products
+       }
+   
+       return render(request, "main.html", context)
+   ```
+4. Buka `main` -> `urls.py`
+   import fungsi `add_card`
+   
+   ```
+   from main.views import show_main, add_card
+   ```
+   dan tambahkan *path url* ke dalam `urlpatterns`
+
+   ```
+   urlpatterns = [
+       ...
+       path('add-card', add_card, name='add_card'),
+       ...
+   ] 
+   ```
+# 5. HTML
+
+### B. Tambahkan 5 fungsi `views` untuk melihat objek yang sudah ditambahkan dalam format HTML, XML, JSON, XML *by ID*, dan JSON *by ID*
+1. Buka `main` -> `views.py` dan tambahkan beberapa import
+
+   ```
+   from django.http import HttpResponse
+   from django.core import serializers
+   ```
+2. Menambahkan fungsi `show_xml`, `show_json`, `show_xml_by_id`, `show_json_by_id`
+
+   ```
+   def show_xml(request):
+       data = Product.objects.all()
+       return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+
+   def show_json(request):
+       data = Product.objects.all()
+       return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+   
+   def show_xml_by_id(request, id):
+       data = Product.objects.filter(pk=id)
+       return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+   
+   def show_json_by_id(request, id):
+       data = Product.objects.filter(pk=id)
+       return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+   ```
+
+### C. Membuat routing URL untuk masing - masing `views` yang telah ditambahkan pada poin 2
+1. Buka `main` -> `urls.py` dan tambahkan ke 4 fungsi yang telah dibuat
+
+   ```
+   from main.views import show_main, add_card, show_xml, show_json, show_xml_by_id, show_json_by_id 
+   ```
+2. tambahkan masing - masing *path url* ke dalam `urlpatterns`
+
+   ```
+   urlpatterns = [
+    ...
+    path('xml/', show_xml, name='show_xml'), # XML
+    path('json/', show_json, name='show_json'), # JSON
+    path('xml/<int:id>/', show_xml_by_id, name='show_xml_by_id'), # XML by ID
+    path('json/<int:id>/', show_json_by_id, name='show_json_by_id'), # JSON by ID
+    ...
+   ]
+   ```
+   
+## *screenshot* dari hasil akses URL
