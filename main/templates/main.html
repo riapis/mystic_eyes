@@ -1,6 +1,52 @@
-<h1>Mystic Eyes Card Holder</h1>
+{% extends 'base.html' %}
 
-<h5>Name: </h5>
-<p>{{ nama }}</p>
-<h5>Class: </h5>
-<p>{{ kelas }}</p> 
+{% block content %}
+
+<style>
+    table, th, td {
+      border:1px solid black;
+    }
+</style>
+
+    <h1>Mystic Eye Card Holder</h1>
+
+    <h5>Name:</h5>
+    <p>{{name}}</p>
+
+    <h5>Class:</h5>
+    <p>{{class}}</p>
+
+    <h3>You have {{ products|length }} card(s) for your journey</h3>
+<table>
+    <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Element</th>
+        <th>Amount</th>
+        <th>Power</th>
+        <th>Description</th>
+    </tr>
+
+    {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
+
+    {% for product in products %}
+        <tr>
+            <td>{{product.type}}</td>
+            <td>{{product.name}}</td>
+            <td>{{product.element}}</td>
+            <td>{{product.amount}}</td>
+            <td>{{product.power}}</td>
+            <td>{{product.description}}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+<br />
+
+<a href="{% url 'main:add_card' %}">
+    <button>
+        Add New Card
+    </button>
+</a>
+
+{% endblock content %}
