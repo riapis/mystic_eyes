@@ -5,16 +5,17 @@
 <style>
     table, th, td {
       border:1px solid black;
+      
     }
+    
 </style>
 
+<center>
     <h1>Mystic Eye Card Holder</h1>
 
-    <h5>Name:</h5>
-    <p>{{name}}</p>
+    <h3>Name: {{name}}</h3>
 
-    <h5>Class:</h5>
-    <p>{{class}}</p>
+    <h3>Class: {{class}}</h3>
 
     <h3>You have {{ products|length }} card(s) for your journey</h3>
 <table>
@@ -37,9 +38,27 @@
             <td>{{product.amount}}</td>
             <td>{{product.power}}</td>
             <td>{{product.description}}</td>
+            <td>
+                <a href="{% url 'main:increase_card' product.id %}">
+                    <button> + </button>
+                </a>
+            </td>
+            <td>
+                <a href="{% url 'main:decrease_card' product.id %}">
+                    <button> - </button>
+                </a>
+            </td>
+            <td>
+                <form action="{% url 'main:delete_card' product.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
         </tr>
     {% endfor %}
 </table>
+
+<h5>Sesi terakhir login: {{ last_login }}</h5>
 
 <br />
 
@@ -49,4 +68,10 @@
     </button>
 </a>
 
+<a href="{% url 'main:logout' %}">
+    <button>
+        Logout
+    </button>
+</a>
+</center>
 {% endblock content %}
