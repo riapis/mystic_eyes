@@ -699,3 +699,75 @@ Secara umum, penggunaan cookies aman karena data tersimpan di sisi klien atau *u
 
 ## Bonus
 ![Bonus](asset/Bonus_Tugas4.jpg)
+
+#
+# Tugas 5
+## Manfaat tiap *element selector* dan waktu penggunannya
+<table>
+  <tr>
+    <th>Jenis</th>
+    <th>Manfaat</th>
+    <th>Waktu Penggunaan</th>
+  </tr>
+  <tr>
+    <td>Type Selector</td>
+    <td>ID Selector</td>
+    <td>Class Selector</td>
+    <td>Universal Selector</td>
+  </tr>
+  <tr>
+    <td>Ketika ingin mengubah gaya semua elemen dengan jenis yang sama di seluruh situs web</td>
+    <td>Ketika Anda ingin memberi gaya khusus ke satu elemen tertentu</td>
+    <td>Ketika Anda ingin mengubah gaya beberapa elemen yang memiliki karakteristik yang sama, seperti tombol</td>
+    <td>ketika Anda ingin mengatur gaya default untuk elemen atau menghapus gaya default yang diberikan oleh browser</td>
+  </tr>
+</table>
+
+## HTML5 Tag
+1. <header>: Digunakan untuk menunjukkan bagian atas atau kepala dari suatu elemen atau sektor dalam halaman web
+2. <nav>: Mendefinisikan bagian navigasi dalam dokumen
+3. <section>: Mengelompokkan konten terkait secara tematis dalam sebuah halaman
+4. <footer>: Menunjukkan bagian bawah atau kaki dari suatu elemen atau sektor dalam halaman web
+5. <video> dan <audio>: Digunakan untuk menyisipkan dan memainkan video dan audio di halaman web
+6. <canvas>: Digunakan untuk menggambar grafis, animasi, dan grafik di halaman web menggunakan JavaScript
+
+## *Margin VS Padding*
+<table>
+  <tr>
+    <td>Margin</td>
+    <td>Padding</td>
+  </tr>
+  <tr>
+    <td>Ruang di luar elemen HTML</td>
+    <td>Ruang di dalam elemen HTML></td>
+  </tr>
+   <tr>
+      <td>Tidak memiliki warna latar belakang dan tidak akan terlihat secara visual</td>
+      <td>Memiliki warna latar belakang dan akan terlihat sebagai ruang di dalam elemen</td>
+   </tr>
+   <tr>
+      <td>Margin elemen akan memengaruhi elemen sekitarnya</td>
+      <td>Padding elemen tidak akan memengaruhi elemen sekitarnya</td>
+   </tr>
+</table>
+
+## *framework* CSS Tailwind VS Bootstrap dan kapan penggunaannya
+<table>
+  <tr>
+    <td>Tailwind</td>
+    <td>Bootstrap</td>
+  </tr>
+  <tr>
+    <td>Sangat fleksibel dan memungkinkan pengguna untuk membuat tampilan yang sangat kustom</td>
+    <td>Lebih kaku dalam hal gaya dan komponen yang telah ditentukan></td>
+  </tr>
+   <tr>
+      <td>Biasanya menghasilkan file CSS yang lebih kecil karena hanya menghasilkan gaya yang digunakan dalam proyek</td>
+      <td>Memiliki file CSS yang lebih besar karena termasuk banyak komponen dan gaya yang telah ditentukan sebelumnya</td>
+   </tr>
+</table>
+
+Tailwind lebih cocok digunakan jika ingin memegang kendali atas *design* dan menciptakan tampilan yang sangat unik
+Bootstrap lebih cocok digunakan jika ingin mendapatkan *design* dengan mudah dan memerlukan pengembangan cepat
+
+## Bonus
