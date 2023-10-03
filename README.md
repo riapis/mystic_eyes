@@ -1,5 +1,5 @@
 # Mystic Eyes
-Trading Card game dengan tema fantasi.
+Trading Card Game dengan Tema Fantasi.
 https://mystic-eyes.adaptable.app/
 #
 
