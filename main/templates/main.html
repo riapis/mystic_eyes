@@ -7,6 +7,10 @@
       border:1px solid black;
       
     }
+
+    table tr:last-child {
+    color: #e20808; /* Change to your desired color */
+    }
     
 </style>
 
@@ -46,6 +50,13 @@
             <td>
                 <a href="{% url 'main:decrease_card' product.id %}">
                     <button> - </button>
+                </a>
+            </td>
+            <td>
+                <a href="{% url 'main:edit_deck' product.pk %}">
+                    <button>
+                        Edit
+                    </button>
                 </a>
             </td>
             <td>
