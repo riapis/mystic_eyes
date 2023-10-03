@@ -771,3 +771,4 @@ Tailwind lebih cocok digunakan jika ingin memegang kendali atas *design* dan men
 Bootstrap lebih cocok digunakan jika ingin mendapatkan *design* dengan mudah dan memerlukan pengembangan cepat
 
 ## Bonus
+![Bonus](asset/Bonus_Tugas5.jpg)
