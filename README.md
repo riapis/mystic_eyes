@@ -734,8 +734,8 @@ Secara umum, penggunaan cookies aman karena data tersimpan di sisi klien atau *u
 ## *Margin VS Padding*
 <table>
   <tr>
-    <td>Margin</td>
-    <td>Padding</td>
+    <th>Margin</th>
+    <th>Padding</th>
   </tr>
   <tr>
     <td>Ruang di luar elemen HTML</td>
@@ -754,8 +754,8 @@ Secara umum, penggunaan cookies aman karena data tersimpan di sisi klien atau *u
 ## *framework* CSS Tailwind VS Bootstrap dan kapan penggunaannya
 <table>
   <tr>
-    <td>Tailwind</td>
-    <td>Bootstrap</td>
+    <th>Tailwind</th>
+    <th>Bootstrap</th>
   </tr>
   <tr>
     <td>Sangat fleksibel dan memungkinkan pengguna untuk membuat tampilan yang sangat kustom</td>
@@ -772,3 +772,42 @@ Bootstrap lebih cocok digunakan jika ingin mendapatkan *design* dengan mudah dan
 
 ## Bonus
 ![Bonus](asset/Bonus_Tugas5.jpg)
+
+#
+# Tugas 6
+## *asynchronous programming* vs *synchronous programming*
+*asynchronous programming* dapat menjalankan program secara bersamaan tanpa menunggu tugas sebelumnya selesai,
+*synchronous programming* akan menjalankan program secara urutan dengan menunggu tugas sebelumnya selesai
+
+## *event-driven programming*
+adalah paradigma di mana alur berjalannya kode bukan dari urutannya, tetapi melalui sebuah aksi yang terjadi dalam sistem atau aplikasi.
+Contoh: saat ingin menjalankan kode dengan mengklik sebuah tombol `add product`
+
+## Penerapan *asynchronous programming* pada AJAX
+Teknik yang memungkinkan untuk mengambil dari atau mengirim ke server tanpa harus *refresh web page* yang artinya eksekusi kode bisa tetap berlanjut sehingga web akan tetap responsif
+
+## Fetch API vs *library* jQuery
+<table>
+  <tr>
+    <th>Fetch API</th>
+    <th>jQuery</th>
+  </tr>
+  <tr>
+    <td>Modern</td>
+    <td>Cross-browser compatible></td>
+  </tr>
+   <tr>
+      <td>Ringan</td>
+      <td>Ekosistem plugin yang besar</td>
+   </tr>
+   <tr>
+      <td>Promise-based</td>
+      <td></td>
+   </tr>
+</table>
+
+Menurut saya Fetch API lebih baik karena lebih modern, ringan, dan cepat. Masalah kompatibilitas dengan browser harusnya tidak menjadi masalah karena browser - browser baru sudah *compatible* dengan penggunaan Fetch API.
+
+## Pengimplementasian *checklist*
+
+## Bonus
