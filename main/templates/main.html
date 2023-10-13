@@ -91,7 +91,7 @@
 
     <h3>Class: {{class}}</h3>
 
-    <h3>You have {{ products|length }} mystical card(s) for your epic journey</h3>
+    <h3>You have <span id="banyak_item">{{ products|length }}</span> mystical card(s) for your epic journey</h3>
     <table id="product_table">
         <tr>
             <th>Type</th>
@@ -247,6 +247,10 @@
         })
         
         document.getElementById("product_table").innerHTML = htmlString
+        const banyakItem = products.length;
+        document.getElementById("banyak_item").textContent = banyakItem;
+
+
     }
 
     refreshProducts()
