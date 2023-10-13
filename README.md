@@ -1,5 +1,5 @@
 # Mystic Eyes
-Trading Card game dengan tema fantasi.
+Trading Card Game dengan Tema Fantasi.
 https://mystic-eyes.adaptable.app/
 #
 
@@ -734,8 +734,8 @@ Secara umum, penggunaan cookies aman karena data tersimpan di sisi klien atau *u
 ## *Margin VS Padding*
 <table>
   <tr>
-    <td>Margin</td>
-    <td>Padding</td>
+    <th>Margin</th>
+    <th>Padding</th>
   </tr>
   <tr>
     <td>Ruang di luar elemen HTML</td>
@@ -754,8 +754,8 @@ Secara umum, penggunaan cookies aman karena data tersimpan di sisi klien atau *u
 ## *framework* CSS Tailwind VS Bootstrap dan kapan penggunaannya
 <table>
   <tr>
-    <td>Tailwind</td>
-    <td>Bootstrap</td>
+    <th>Tailwind</th>
+    <th>Bootstrap</th>
   </tr>
   <tr>
     <td>Sangat fleksibel dan memungkinkan pengguna untuk membuat tampilan yang sangat kustom</td>
@@ -771,3 +771,114 @@ Tailwind lebih cocok digunakan jika ingin memegang kendali atas *design* dan men
 Bootstrap lebih cocok digunakan jika ingin mendapatkan *design* dengan mudah dan memerlukan pengembangan cepat
 
 ## Bonus
+![Bonus](asset/Bonus_Tugas5.jpg)
+
+#
+# Tugas 6
+## *asynchronous programming* vs *synchronous programming*
+*asynchronous programming* dapat menjalankan program secara bersamaan tanpa menunggu tugas sebelumnya selesai,
+*synchronous programming* akan menjalankan program secara urutan dengan menunggu tugas sebelumnya selesai
+
+## *event-driven programming*
+adalah paradigma di mana alur berjalannya kode bukan dari urutannya, tetapi melalui sebuah aksi yang terjadi dalam sistem atau aplikasi.
+Contoh: saat ingin menjalankan kode dengan mengklik sebuah tombol `add product`
+
+## Penerapan *asynchronous programming* pada AJAX
+Teknik yang memungkinkan untuk mengambil dari atau mengirim ke server tanpa harus *refresh web page* yang artinya eksekusi kode bisa tetap berlanjut sehingga web akan tetap responsif
+
+## Fetch API vs *library* jQuery
+<table>
+  <tr>
+    <th>Fetch API</th>
+    <th>jQuery</th>
+  </tr>
+  <tr>
+    <td>Modern</td>
+    <td>Cross-browser compatible></td>
+  </tr>
+   <tr>
+      <td>Ringan</td>
+      <td>Ekosistem plugin yang besar</td>
+   </tr>
+   <tr>
+      <td>Promise-based</td>
+      <td></td>
+   </tr>
+</table>
+
+Menurut saya Fetch API lebih baik karena lebih modern, ringan, dan cepat. Masalah kompatibilitas dengan browser harusnya tidak menjadi masalah karena browser - browser baru sudah *compatible* dengan penggunaan Fetch API.
+
+## Pengimplementasian *checklist*
+### A. AJAX GET
+1. Buka `main` -> `views.py` dan tambahkan fungsi untuk mendapatkan data brupa JSON
+
+   ```
+   def get_product_json(request):
+    product_item = Product.objects.all()
+    return HttpResponse(serializers.serialize('json', product_item))
+   ```
+2. Pada `urls.py` tambahkan path
+
+   ```
+   ...
+   path('get-product/', get_product_json, name='get_product_json'),
+   ...
+   ```
+3. Buka `main` -> `main.html` dan tambahkan `id="product_table"` pada `<table></table>`
+
+   ```
+   <table id="product_table"></table>
+   ```
+4. Tambahkan script untuk mendapatkan produk
+
+   ```
+   <script>
+    async function getProducts() {
+        return fetch("{% url 'main:get_product_json' %}").then((res) => res.json())
+    }
+   </script>
+   ```
+5. Buat fungsi refreshProducts() untuk refresh item secara asinkronus
+
+### B. AJAX POST
+1. Buka `main` -> `views.py` dan tambahkan fungsi `add_product_ajax`
+
+   ```
+   @csrf_exempt
+   def add_product_ajax(request):
+       if request.method == 'POST':
+           type = request.POST.get("type")
+           name = request.POST.get("name")
+           element = request.POST.get("element")
+           amount = request.POST.get("amount")
+           power = request.POST.get("power")
+           description = request.POST.get("description")
+           user = request.user
+
+        new_product = Product(type=type, name=name, element=element, amount=amount, power=power, description=description, user=user)
+        new_product.save()
+
+        return HttpResponse(b"CREATED", status=201)
+
+    return HttpResponseNotFound()
+   ```
+2. Pada `urls.py` tambahkan path
+
+   ```
+   ...
+   path('create-product-ajax/', add_product_ajax, name='add_product_ajax'),
+   ...
+   ```
+3. Pada script tambahkan fungsi `addProduct()`
+
+   ```
+   function addProduct() {
+        fetch("{% url 'main:add_product_ajax' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(refreshProducts)
+
+        document.getElementById("form").reset()
+        return false
+    }
+   ```
