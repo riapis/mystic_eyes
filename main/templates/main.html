@@ -3,86 +3,265 @@
 {% block content %}
 
 <style>
-    table, th, td {
-      border:1px solid black;
-      
+    body {
+        background-color: #37244c;
     }
 
-    table tr:last-child {
-    color: #e20808; /* Change to your desired color */
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td, tr {
+        border: 2px solid #505050; 
+        background-color: #ee9854;
+        font-family: 'Garamond', serif;
+        font-size: 18px;
+        color: #000000;
+        padding: 10px;
+    }
+
+    th {
+        background-color: #cba681;
+        color: #000000;
+    }
+
+    h1, h3, h5 {
+        font-family: 'Garamond', serif; 
+        color: #ffffff; 
+    }
+
+    button {
+        background-color: #ee9854; 
+        color: #000000;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        margin: 5px;
+    }
+
+    center {
+        text-align: center;
+    }
+
+    .navbar {
+        background-color: #52366f; 
+        color: rgb(255, 255, 255);
+        height: 70px; 
+        padding: 10px; 
+        margin-bottom: 50px;
+    }
+
+    .navbar-brand{
+        color: white;
+        font-family: 'Garamond', serif;
+        font-size: 30px;
+    }
+
+    .navbar-button {
+        background-color: #52366f; 
+        color: #ffffff; 
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        font-family: 'Garamond', serif;
+        font-size: 20px;
+        margin: 1px;
     }
     
 </style>
 
 <center>
-    <h1>Mystic Eye Card Holder</h1>
+    <nav class="navbar">
+        <div class="navbar-left">
+            <a class="navbar-brand">Mystic Eyes Card Holder</a>
+        </div>
+        <div class="navbar-right">
+            <a href="{% url 'main:add_card' %}">
+                <button class="navbar-button">Add New Mystical Card</button>
+            </a>
+            <a href="{% url 'main:logout' %}">
+                <button class="navbar-button">Logout</button>
+            </a>
+        </div>
+    </nav>
 
     <h3>Name: {{name}}</h3>
 
     <h3>Class: {{class}}</h3>
 
-    <h3>You have {{ products|length }} card(s) for your journey</h3>
-<table>
-    <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Element</th>
-        <th>Amount</th>
-        <th>Power</th>
-        <th>Description</th>
-    </tr>
-
-    {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
-
-    {% for product in products %}
+    <h3>You have {{ products|length }} mystical card(s) for your epic journey</h3>
+    <table id="product_table">
         <tr>
-            <td>{{product.type}}</td>
-            <td>{{product.name}}</td>
-            <td>{{product.element}}</td>
-            <td>{{product.amount}}</td>
-            <td>{{product.power}}</td>
-            <td>{{product.description}}</td>
+            <th>Type</th>
+            <th>Name</th>
+            <th>Element</th>
+            <th>Amount</th>
+            <th>Power</th>
+            <th>Description</th>
+            <th>Gain</th>
+            <th>Diminish</th>
+            <th>Transform</th>
+            <th>Destroy</th>
+        </tr>
+
+        {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
+
+        {% for product in products %}
+            <tr>
+                <td>{{product.type}}</td>
+                <td>{{product.name}}</td>
+                <td>{{product.element}}</td>
+                <td>{{product.amount}}</td>
+                <td>{{product.power}}</td>
+                <td>{{product.description}}</td>
+                <td>
+                    <a href="{% url 'main:increase_card' product.id %}">
+                        <button> + </button>
+                    </a>
+                </td>
+                <td>
+                    <a href="{% url 'main:decrease_card' product.id %}">
+                        <button> - </button>
+                    </a>
+                </td>
+                <td>
+                    <a href="{% url 'main:edit_deck' product.pk %}">
+                        <button>
+                            Edit
+                        </button>
+                    </a>
+                </td>
+                <td>
+                    <form action="{% url 'main:delete_card' product.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Card</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form" onsubmit="return false;">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="type" class="col-form-label">Type:</label>
+                            <input type="text" class="form-control" id="type" name="type"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="name" class="col-form-label">Name:</label>
+                            <input type="text" class="form-control" id="name" name="name"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="element" class="col-form-label">Element:</label>
+                            <input type="text" class="form-control" id="element" name="element"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="amount" class="col-form-label">Amount:</label>
+                            <input type="number" class="form-control" id="amount" name="amount"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="power" class="col-form-label">Power:</label>
+                            <input type="number" class="form-control" id="power" name="power"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="col-form-label">Description:</label>
+                            <textarea class="form-control" id="description" name="description"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Product</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Product by AJAX</button>
+
+    <h5>Last Login Session: {{ last_login }}</h5>
+</center>
+
+<script>
+    async function getProducts() {
+        return fetch("{% url 'main:get_product_json' %}").then((res) => res.json())
+    }
+
+    async function refreshProducts() {
+        document.getElementById("product_table").innerHTML = ""
+        const products = await getProducts()
+        let htmlString = `<tr>
+            <th>Type</th>
+            <th>Name</th>
+            <th>Element</th>
+            <th>Amount</th>
+            <th>Power</th>
+            <th>Description</th>
+            <th>Gain</th>
+            <th>Diminish</th>
+            <th>Transform</th>
+            <th>Destroy</th>
+        </tr>`
+        products.forEach((item) => {
+            htmlString += `\n<tr>
+            <td>${item.fields.type}</td>
+            <td>${item.fields.name}</td>
+            <td>${item.fields.element}</td>
+            <td>${item.fields.amount}</td>
+            <td>${item.fields.power}</td>
+            <td>${item.fields.description}</td>
             <td>
-                <a href="{% url 'main:increase_card' product.id %}">
+                <a href="product/${item.pk}/increase/">
                     <button> + </button>
                 </a>
             </td>
             <td>
-                <a href="{% url 'main:decrease_card' product.id %}">
+                <a href="product/${item.pk}/decrease/">
                     <button> - </button>
                 </a>
             </td>
             <td>
-                <a href="{% url 'main:edit_deck' product.pk %}">
+                <a href="edit-deck/${item.pk}/">
                     <button>
                         Edit
                     </button>
                 </a>
             </td>
             <td>
-                <form action="{% url 'main:delete_card' product.id %}" method="post">
+                <form action="delete_card/${item.pk}/" method="post">
                     {% csrf_token %}
                     <button type="submit">Delete</button>
                 </form>
             </td>
-        </tr>
-    {% endfor %}
-</table>
+        </tr>` 
+        })
+        
+        document.getElementById("product_table").innerHTML = htmlString
+    }
 
-<h5>Sesi terakhir login: {{ last_login }}</h5>
+    refreshProducts()
 
-<br />
+    function addProduct() {
+        fetch("{% url 'main:add_product_ajax' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(refreshProducts)
 
-<a href="{% url 'main:add_card' %}">
-    <button>
-        Add New Card
-    </button>
-</a>
+        document.getElementById("form").reset()
+        return false
+    }
+    document.getElementById("button_add").onclick = addProduct
 
-<a href="{% url 'main:logout' %}">
-    <button>
-        Logout
-    </button>
-</a>
-</center>
+    
+</script>
 {% endblock content %}
