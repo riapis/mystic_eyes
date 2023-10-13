@@ -809,5 +809,76 @@ Teknik yang memungkinkan untuk mengambil dari atau mengirim ke server tanpa haru
 Menurut saya Fetch API lebih baik karena lebih modern, ringan, dan cepat. Masalah kompatibilitas dengan browser harusnya tidak menjadi masalah karena browser - browser baru sudah *compatible* dengan penggunaan Fetch API.
 
 ## Pengimplementasian *checklist*
+### A. AJAX GET
+1. Buka `main` -> `views.py` dan tambahkan fungsi untuk mendapatkan data brupa JSON
 
-## Bonus
+   ```
+   def get_product_json(request):
+    product_item = Product.objects.all()
+    return HttpResponse(serializers.serialize('json', product_item))
+   ```
+2. Pada `urls.py` tambahkan path
+
+   ```
+   ...
+   path('get-product/', get_product_json, name='get_product_json'),
+   ...
+   ```
+3. Buka `main` -> `main.html` dan tambahkan `id="product_table"` pada `<table></table>`
+
+   ```
+   <table id="product_table"></table>
+   ```
+4. Tambahkan script untuk mendapatkan produk
+
+   ```
+   <script>
+    async function getProducts() {
+        return fetch("{% url 'main:get_product_json' %}").then((res) => res.json())
+    }
+   </script>
+   ```
+5. Buat fungsi refreshProducts() untuk refresh item secara asinkronus
+
+### B. AJAX POST
+1. Buka `main` -> `views.py` dan tambahkan fungsi `add_product_ajax`
+
+   ```
+   @csrf_exempt
+   def add_product_ajax(request):
+       if request.method == 'POST':
+           type = request.POST.get("type")
+           name = request.POST.get("name")
+           element = request.POST.get("element")
+           amount = request.POST.get("amount")
+           power = request.POST.get("power")
+           description = request.POST.get("description")
+           user = request.user
+
+        new_product = Product(type=type, name=name, element=element, amount=amount, power=power, description=description, user=user)
+        new_product.save()
+
+        return HttpResponse(b"CREATED", status=201)
+
+    return HttpResponseNotFound()
+   ```
+2. Pada `urls.py` tambahkan path
+
+   ```
+   ...
+   path('create-product-ajax/', add_product_ajax, name='add_product_ajax'),
+   ...
+   ```
+3. Pada script tambahkan fungsi `addProduct()`
+
+   ```
+   function addProduct() {
+        fetch("{% url 'main:add_product_ajax' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(refreshProducts)
+
+        document.getElementById("form").reset()
+        return false
+    }
+   ```
