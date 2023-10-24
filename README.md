@@ -724,12 +724,12 @@ Secara umum, penggunaan cookies aman karena data tersimpan di sisi klien atau *u
 </table>
 
 ## HTML5 Tag
-1. <header>: Digunakan untuk menunjukkan bagian atas atau kepala dari suatu elemen atau sektor dalam halaman web
-2. <nav>: Mendefinisikan bagian navigasi dalam dokumen
-3. <section>: Mengelompokkan konten terkait secara tematis dalam sebuah halaman
-4. <footer>: Menunjukkan bagian bawah atau kaki dari suatu elemen atau sektor dalam halaman web
-5. <video> dan <audio>: Digunakan untuk menyisipkan dan memainkan video dan audio di halaman web
-6. <canvas>: Digunakan untuk menggambar grafis, animasi, dan grafik di halaman web menggunakan JavaScript
+1. `header`: Digunakan untuk menunjukkan bagian atas atau kepala dari suatu elemen atau sektor dalam halaman web
+2. `nav`: Mendefinisikan bagian navigasi dalam dokumen
+3. `section`: Mengelompokkan konten terkait secara tematis dalam sebuah halaman
+4. `footer`: Menunjukkan bagian bawah atau kaki dari suatu elemen atau sektor dalam halaman web
+5. `video` dan `audio`: Digunakan untuk menyisipkan dan memainkan video dan audio di halaman web
+6. `canvas`: Digunakan untuk menggambar grafis, animasi, dan grafik di halaman web menggunakan JavaScript
 
 ## *Margin VS Padding*
 <table>
